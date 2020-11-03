@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\FindAnswer;
+use App\Jobs\SendEmail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        FindAnswer::class
     ];
 
     /**
@@ -24,7 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+    	$schedule->command('find:answer')->dailyAt('1:00');  //run this schedule at 1 am
+
+	    $schedule->call(function (){
+		    dispatch(new SendEmail());
+	    });
     }
 
     /**
