@@ -26,11 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-    	$schedule->command('find:answer')->dailyAt('1:00');  //run this schedule at 1 am
+    	$schedule->command('find:answer')->daily();  //run this schedule at 12 am
 
 	    $schedule->call(function (){
 		    dispatch(new SendEmail());
-	    });
+	    })->cron('0 */48 * * *')->at('8:00');  //run corn after 48 hours apart at 8 am
     }
 
     /**

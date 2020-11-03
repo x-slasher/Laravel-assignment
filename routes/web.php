@@ -18,7 +18,3 @@ Route::get('/', function () {
 });
 
 
-Route::get('send-email',function (){
-    dispatch(new \App\Jobs\SendEmail());
-    dd('done');
-});

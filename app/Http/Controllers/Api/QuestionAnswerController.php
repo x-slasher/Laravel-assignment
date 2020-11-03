@@ -24,14 +24,9 @@ class QuestionAnswerController extends Controller
      */
     public function index()
     {
-
-        $questions = Question::with('answer')->where('type_id',1)->where(function ($query){
-        	$query->whereBetween('date',array(Carbon::now()->subDay(2)->format('Y-m-d'),Carbon::now()->format('Y-m-d')));
-        })->get();
-        return $questions;
-
         $question_answers = QuestionAnswer::paginate($this->limit);
         return $this->responseWithData($question_answers);
+
     }
 
 
