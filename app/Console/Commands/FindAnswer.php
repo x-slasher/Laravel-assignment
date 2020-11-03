@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\QuestionAnswer;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class FindAnswer extends Command
 {
@@ -37,6 +40,10 @@ class FindAnswer extends Command
      */
     public function handle()
     {
-        return 0;
+	    $question_answers = QuestionAnswer::where('answer',NULL)->where('created_at','>=',Carbon::now()->subDay(1))->get();
+	    foreach ($question_answers as $answer) {
+		    $answer->delete();
+	    }
+	    Log::info('--Answer Deleted Successfully--');
     }
 }

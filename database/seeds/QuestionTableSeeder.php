@@ -16,7 +16,7 @@ class QuestionTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
         foreach (range(1,10) as $index) {
 
-            $day = rand(1,2); //generate random dates between 1 to 3
+            $day = rand(1,3); //generate random dates between 1 to 3
             $date = \Carbon\Carbon::create(2020,11,$day); //generate random dates between 2020-11-1 to 2
 
             \App\Question::insert([
